@@ -1,0 +1,24 @@
+---
+title: "FEC Data"
+author: "Sydney Steel"
+date: "10/22/2018"
+output: 
+  html_document:
+    theme: journal
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(stringr)
+```
+
+```{r}
+FEC <- read_delim("itcont.txt", delim = "|", col_names = FALSE) 
+  
+FEC %>% 
+  transmute(name = X8, employer = X12, state = X10, occupation = X13, amount = X15) %>% 
+  filter(str_detect(employer, "HARVARD")) %>% 
+  count(employer)
+```
+
